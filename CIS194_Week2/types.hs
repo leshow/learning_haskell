@@ -4,7 +4,7 @@ data Thing = Shoe
            | Pills 
            | King
   deriving Show
-
+-- read | as "or"
 shoe :: Thing
 shoe = Shoe
 
@@ -39,8 +39,9 @@ failureToZero :: FailableDouble -> Double
 failureToZero Failure = 0
 failureToZero (OK d)  = d
 
--- make a person type, containing their name, age, and favorite thing
+
 type Name = String -- define a synonym for string to be used with Person constructor
+-- make a person type, containing their name, age, and favorite thing
 data Person = Person Name Int Thing
 	deriving Show
 
@@ -71,7 +72,7 @@ data IntList = Empty
 			| Cons Int IntList
 
 intListProd :: IntList -> Int
-intListProd Empty		= 1
+intListProd Empty			= 1
 intListProd (Cons ft sd)	= ft * intListProd sd
 
 -- binary tree example
@@ -79,3 +80,14 @@ data Tree = Leaf Char
 	|	Node Tree Int Tree
 tree :: Tree
 tree = Node (Leaf 'x') 1 (Node (Leaf 'y') 2 (Leaf 'z'))
+
+-- from realworldhaskell book
+type CustomerID = Int
+type CardHolder = String
+type CardNumber = String
+type Address = [String]
+
+data BillingInfo = CreditCard CardNumber CardHolder Address
+                 | CashOnDelivery
+                 | Invoice CustomerID
+                   deriving (Show)
