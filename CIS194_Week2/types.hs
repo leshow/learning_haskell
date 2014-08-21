@@ -40,7 +40,8 @@ failureToZero Failure = 0
 failureToZero (OK d)  = d
 
 -- make a person type, containing their name, age, and favorite thing
-data Person = Person String Int Thing
+type Name = String -- define a synonym for string to be used with Person constructor
+data Person = Person Name Int Thing
 	deriving Show
 
 brody :: Person
@@ -50,3 +51,31 @@ eminem = Person "Eminem" 41 Pills
 
 getAge :: Person -> Int
 getAge (Person _ a _) = a
+
+--pattern matching example. show behaves sort of like a toString
+printName :: Person -> Name
+printName x@(Person name _ _) = "Our type (" ++ show x ++ ") our name " ++ name
+
+checkForFoo :: Person -> Bool
+checkForFoo (Person _ _ Foo) 	= True
+checkForFoo (Person _ _ _)		= False
+
+-- failureToZero written using case, without the syntactic sugar
+failureToZero' :: FailableDouble -> Double
+failureToZero' x = case x of
+	Failure -> 0
+	OK d 	-> d
+
+-- Recursive types
+data IntList = Empty 
+			| Cons Int IntList
+
+intListProd :: IntList -> Int
+intListProd Empty		= 1
+intListProd (Cons ft sd)	= ft * intListProd sd
+
+-- binary tree example
+data Tree = Leaf Char
+	|	Node Tree Int Tree
+tree :: Tree
+tree = Node (Leaf 'x') 1 (Node (Leaf 'y') 2 (Leaf 'z'))

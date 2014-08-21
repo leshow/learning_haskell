@@ -17,8 +17,8 @@ factorial n = n * factorial (n - 1)
 
 hailstone :: Integer -> Integer
 hailstone n
-	| n `mod` 2 == 0 = n `div` 2
-	| otherwise	= 3 * n + 1
+	| n `mod` 2 == 0 	= n `div` 2
+	| otherwise			= 3 * n + 1
 
 -- `mod` written as an infix function here, as prefix mod n 2
 -- the backspace transforms it to infix
