@@ -69,3 +69,9 @@ sumEveryTwo (x:y:zs) 	= (x + y) : sumEveryTwo zs
 
 hailstoneLen :: Integer -> Integer
 hailstoneLen n = intListLength (hailstoneSeq n) - 1
+
+
+-- just messing around
+printStrRecursive :: [Char] -> [Char]
+printStrRecursive []		= ""
+printStrRecursive (x:xs) 	= x : printStrRecursive xs
