@@ -78,6 +78,7 @@ intListProd (Cons ft sd)	= ft * intListProd sd
 -- binary tree example
 data Tree = Leaf Char
 	|	Node Tree Int Tree
+
 tree :: Tree
 tree = Node (Leaf 'x') 1 (Node (Leaf 'y') 2 (Leaf 'z'))
 
@@ -88,6 +89,18 @@ type CardNumber = String
 type Address = [String]
 
 data BillingInfo = CreditCard CardNumber CardHolder Address
-                 | CashOnDelivery
-                 | Invoice CustomerID
-                   deriving (Show)
+                | CashOnDelivery
+                | Invoice CustomerID
+  deriving (Show)
+
+getCardNumber :: BillingInfo -> CardNumber
+getCardNumber	(CreditCard number _ _)	=	number
+getCardNumber (CashOnDelivery)				=	"No card number"
+
+{- writing it the way above and manually writing getter methods
+	can be tedious, so you can write like: -}
+data Customer = Customer {
+    customerID      :: CustomerID
+  , customerName    :: String
+  , customerAddress :: Address
+  } deriving (Show)
