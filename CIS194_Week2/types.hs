@@ -98,9 +98,26 @@ getCardNumber	(CreditCard number _ _)	=	number
 getCardNumber (CashOnDelivery)				=	"No card number"
 
 {- writing it the way above and manually writing getter methods
-	can be tedious, so you can write like: -}
+	can be tedious, so you can write it using RECORD syntax: -}
 data Customer = Customer {
     customerID      :: CustomerID
   , customerName    :: String
   , customerAddress :: Address
   } deriving (Show)
+
+-- this is equal to:
+{-
+		data Customer = Customer Int String [String]
+		            deriving (Show)
+
+		customerID :: Customer -> Int
+		customerID (Customer id _ _) = id
+
+		customerName :: Customer -> String
+		customerName (Customer _ name _) = name
+
+		customerAddress :: Customer -> [String]
+		customerAddress (Customer _ _ address) = address
+
+-}
+--Record syntax is good for large structures 
