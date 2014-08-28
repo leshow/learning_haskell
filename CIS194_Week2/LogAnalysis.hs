@@ -26,6 +26,4 @@ parseMessage message = case words message of
 						msg -> Unknown "Wrong log message dummy"
 
 parse :: String -> [LogMessage]
-parse fileName = do  
-				contents <- readFile fileName 
-				parseMessage (lines contents)
+parse content = map parseMessage $ lines content -- eq to -> map parseMessage . lines
