@@ -2,7 +2,7 @@
 module LogAnalysis where
 
 import Log
-
+import System.IO
 {-
  my first failed attempt:
 parseMessage :: String -> LogMessage
@@ -24,3 +24,10 @@ parseMessage message = case words message of
 						("W":timestamp:rest) -> LogMessage Warning (read timestamp) (unwords rest)
 						("E":err:timestamp:rest) -> LogMessage (Error (read err)) (read timestamp) (unwords rest)
 						msg -> Unknown "Wrong log message dummy"
+
+parse :: String -> [LogMessage]
+parse fileName = do  
+			    handle <- openFile "sample.log" ReadMode  
+			    contents <- hGetContents handle  
+			    parseMessage (lines contents)
+			    hClose handle
