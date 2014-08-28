@@ -27,7 +27,5 @@ parseMessage message = case words message of
 
 parse :: String -> [LogMessage]
 parse fileName = do  
-			    handle <- openFile "sample.log" ReadMode  
-			    contents <- hGetContents handle  
-			    parseMessage (lines contents)
-			    hClose handle
+				contents <- readFile fileName 
+				parseMessage (lines contents)
