@@ -36,8 +36,8 @@ insert :: LogMessage -> MessageTree -> MessageTree
 insert (Unknown _) tree	= tree 			-- if the LogMessage was const with Unknown, return original MessageTree
 insert logX (Node treeA logY treeB)
 	|	x == y	= Node treeA logY treeB
-	| x > y		= Node (insert logY treeA) logX treeB
-	| x < y		= Node treeA logX (insert logY treeB)
+	| y < x		= Node treeA logY (insert logX treeB)
+	| y > x		= Node (insert logX treeA) logY treeB
 	where
 		x	= getTimestamp logX
 		y = getTimestamp logY 
