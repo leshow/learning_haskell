@@ -44,3 +44,4 @@ insert logX (Node treeA logY treeB)
 		y = getTimestamp logY 
 
 build :: [LogMessage] -> MessageTree
+build msgs = foldr (insert) Leaf msgs -- foldr (function) startVal list. why doesn't foldl work here?
