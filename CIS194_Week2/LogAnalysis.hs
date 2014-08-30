@@ -34,6 +34,7 @@ getTimestamp (LogMessage _ stamp _)					= stamp
 
 insert :: LogMessage -> MessageTree -> MessageTree
 insert (Unknown _) tree	= tree 			-- if the LogMessage was const with Unknown, return original MessageTree
+insert logX Leaf				= Node Leaf logX Leaf
 insert logX (Node treeA logY treeB)
 	|	x == y	= Node treeA logY treeB
 	| y < x		= Node treeA logY (insert logX treeB)
@@ -41,3 +42,5 @@ insert logX (Node treeA logY treeB)
 	where
 		x	= getTimestamp logX
 		y = getTimestamp logY 
+
+build :: [LogMessage] -> MessageTree
