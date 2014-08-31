@@ -8,8 +8,8 @@ doubleUs x y = x * 2 + y * 2
 -- alternate way to write the first function
 sumOther :: Integer -> Integer
 sumOther n = if n == 0
-	then 0
-	else n + sumOther (n - 1)
+    then 0
+    else n + sumOther (n - 1)
 
 factorial :: Integer -> Integer
 factorial 0 = 1
@@ -17,8 +17,8 @@ factorial n = n * factorial (n - 1)
 
 hailstone :: Integer -> Integer
 hailstone n
-	| n `mod` 2 == 0 	= n `div` 2
-	| otherwise			= 3 * n + 1
+    | n `mod` 2 == 0    = n `div` 2
+    | otherwise         = 3 * n + 1
 
 -- `mod` written as an infix function here, as prefix mod n 2
 -- the backspace transforms it to infix
@@ -57,15 +57,15 @@ intListLength (x:xs) = 1 + intListLength xs -- pattern matches list to be first
 
 {-
  we can pattern match to get the first 2 elements in a list like this (x:(y:zs))
- this is equivalent to (x:y:zs) 
+ this is equivalent to (x:y:zs)
 
   _ defines a wildcare. ex. (_:xs) if we didn't care about x for intListLength
 -}
 
 sumEveryTwo :: [Integer] -> [Integer]
-sumEveryTwo [] 			= [] 	-- empty list case
-sumEveryTwo	[x] 		= [x]	-- single element case
-sumEveryTwo (x:y:zs) 	= (x + y) : sumEveryTwo zs
+sumEveryTwo []          = []    -- empty list case
+sumEveryTwo [x]         = [x]   -- single element case
+sumEveryTwo (x:y:zs)    = (x + y) : sumEveryTwo zs
 
 hailstoneLen :: Integer -> Integer
 hailstoneLen n = intListLength (hailstoneSeq n) - 1
@@ -73,5 +73,5 @@ hailstoneLen n = intListLength (hailstoneSeq n) - 1
 
 -- just messing around
 printStrRecursive :: [Char] -> [Char]
-printStrRecursive []		= ""
-printStrRecursive (x:xs) 	= x : printStrRecursive xs
+printStrRecursive []        = ""
+printStrRecursive (x:xs)    = x : printStrRecursive xs
