@@ -6,13 +6,13 @@ import System.IO
 {-
  my first failed attempt:
 parseMessage :: String -> LogMessage
-parseMessage message = 
+parseMessage message =
 	let typeM = case (head msg) of
 		"I" -> Info
 		"W" -> Warning
 		"E" -> Error (read (tail (head msg)))
-	in LogMessage typeM stamp rest 
-	where 	
+	in LogMessage typeM stamp rest
+	where
 		msg = words message
 		stamp = read (head (tail msg))
 		rest  = unwords (tail (tail msg))
@@ -28,17 +28,17 @@ parseMessage message = case words message of
 parse :: String -> [LogMessage]
 parse content = map parseMessage $ lines content -- eq to -> map parseMessage . lines
 
-getTimestamp :: LogMessage -> Int 
-getTimestamp _															= 0
-getTimestamp (LogMessage _ stamp _)					= stamp
+getTimestamp :: LogMessage -> Int
+getTimestamp _								= 0
+getTimestamp (LogMessage _ stamp _) 		= stamp
 getTimestamp (LogMessage (Error _) stamp _)	= stamp
 
 getSeverity :: LogMessage -> Int
-getSeverity _																	= 0
+getSeverity _									= 0
 getSeverity (LogMessage (Error severity) _ _)	= severity
 
 getString :: LogMessage -> String
-getString (LogMessage _ _ stuff)					= stuff 
+getString (LogMessage _ _ stuff)			= stuff
 getString (LogMessage (Error _) _ stuff)	= stuff
 
 insert :: LogMessage -> MessageTree -> MessageTree
@@ -50,7 +50,7 @@ insert logX (Node treeA logY treeB)
 	| y > x		= Node (insert logX treeA) logY treeB
 	where
 		x	= getTimestamp logX
-		y = getTimestamp logY 
+		y = getTimestamp logY
 
 build :: [LogMessage] -> MessageTree
 build msgs = foldr (insert) Leaf msgs	-- foldr (function) startVal list
@@ -63,7 +63,7 @@ whatWentWrong :: [LogMessage] -> [String]
 whatWentWrong msgs	= map getString $ filter (\x -> (getSeverity x) > 50) (inOrder (build msgs))
 
 
-{- if we wanted to make it work with foldl we could swap the arguments for insert 
+{- if we wanted to make it work with foldl we could swap the arguments for insert
 insert1 :: MessageTree -> LogMessage -> MessageTree
 insert1  tree	(Unknown _) = tree 			-- if the LogMessage was const with Unknown, return original MessageTree
 insert1  Leaf	logX			= Node Leaf logX Leaf
@@ -73,7 +73,7 @@ insert1  (Node treeA logY treeB) logX
 	| y > x		= Node (insert logX treeA) logY treeB
 	where
 		x	= getTimestamp logX
-		y = getTimestamp logY 
+		y = getTimestamp logY
 
 		-- then build could be: foldl (insert1) Leaf msgs
 
