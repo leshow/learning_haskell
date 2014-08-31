@@ -60,7 +60,7 @@ inOrder Leaf	= []
 inOrder	(Node t1 a t2)	= inOrder t1 ++ [a] ++ inOrder t2
 
 whatWentWrong :: [LogMessage] -> [String]
-whatWentWrong msgs	= map (getString) (filter (\x -> (getSeverity x) > 50) (inOrder (build msgs)))
+whatWentWrong msgs	= map getString $ filter (\x -> (getSeverity x) > 50) (inOrder (build msgs))
 
 
 {- if we wanted to make it work with foldl we could swap the arguments for insert 
