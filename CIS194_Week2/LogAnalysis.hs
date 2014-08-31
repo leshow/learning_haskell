@@ -29,17 +29,17 @@ parse :: String -> [LogMessage]
 parse content = map parseMessage $ lines content -- eq to -> map parseMessage . lines
 
 getTimestamp :: LogMessage -> Int 
-getTimestamp (LogMessage (Error _) stamp _)	= stamp
-getTimestamp (LogMessage _ stamp _)					= stamp
 getTimestamp _															= 0
+getTimestamp (LogMessage _ stamp _)					= stamp
+getTimestamp (LogMessage (Error _) stamp _)	= stamp
 
 getSeverity :: LogMessage -> Int
-getSeverity (LogMessage (Error severity) _ _)	= severity
 getSeverity _																	= 0
+getSeverity (LogMessage (Error severity) _ _)	= severity
 
 getString :: LogMessage -> String
-getString (LogMessage (Error _) _ stuff)	= stuff
 getString (LogMessage _ _ stuff)					= stuff 
+getString (LogMessage (Error _) _ stuff)	= stuff
 
 insert :: LogMessage -> MessageTree -> MessageTree
 insert (Unknown _) tree	= tree 			-- if the LogMessage was const with Unknown, return original MessageTree
