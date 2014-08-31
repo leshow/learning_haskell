@@ -30,7 +30,7 @@ parse content = map parseMessage $ lines content -- eq to -> map parseMessage . 
 
 getTimestamp :: LogMessage -> Int
 getTimestamp _								= 0
-getTimestamp (LogMessage _ stamp _) 		= stamp
+getTimestamp (LogMessage _ stamp _)			= stamp
 getTimestamp (LogMessage (Error _) stamp _)	= stamp
 
 getSeverity :: LogMessage -> Int
@@ -43,13 +43,13 @@ getString (LogMessage (Error _) _ stuff)	= stuff
 
 insert :: LogMessage -> MessageTree -> MessageTree
 insert (Unknown _) tree	= tree 			-- if the LogMessage was const with Unknown, return original MessageTree
-insert logX Leaf				= Node Leaf logX Leaf
+insert logX Leaf		= Node Leaf logX Leaf
 insert logX (Node treeA logY treeB)
-	|	x == y	= Node treeA logY treeB
+	| x == y	= Node treeA logY treeB
 	| y < x		= Node treeA logY (insert logX treeB)
 	| y > x		= Node (insert logX treeA) logY treeB
 	where
-		x	= getTimestamp logX
+		x = getTimestamp logX
 		y = getTimestamp logY
 
 build :: [LogMessage] -> MessageTree
