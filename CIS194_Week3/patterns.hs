@@ -13,3 +13,11 @@ absAll (Cons i list)    = Cons (abs i) (absAll list)
     unfortunately I already read ahead and used them in the last assignment.
     WOOPS!
     -}
+
+mapToAll :: (Int -> Int) -> IntList -> IntList
+mapToAll _ Empty  = Empty
+mapToAll func (Cons i list)  = Cons (func i) (mapToAll func list)
+
+keepOnlyPos :: IntList -> IntList
+keepOnlyPos Empty           = Empty
+keepOnlyPos (Cons i list)   =
