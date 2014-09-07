@@ -20,4 +20,16 @@ mapToAll func (Cons i list)  = Cons (func i) (mapToAll func list)
 
 keepOnlyPos :: IntList -> IntList
 keepOnlyPos Empty           = Empty
-keepOnlyPos (Cons i list)   =
+keepOnlyPos (Cons i list)
+    | i > 0     = Cons i (keepOnlyPos list)
+    | otherwise = keepOnlyPos list
+
+filterAll :: (Int -> Bool) -> IntList -> IntList
+filterAll _ Empty               = Empty
+filterAll func (Cons i list)
+    | func i    = Cons i (filterAll func list)
+    | otherwise = filterAll func list
+
+foldIntList :: (Int -> Int -> Int) -> IntList -> Int
+foldIntList _ Empty               = 0
+foldIntList func (Cons i list)  = func i (foldIntList func list)
