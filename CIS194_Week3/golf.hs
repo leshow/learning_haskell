@@ -3,9 +3,9 @@ module Golf where
 	FINALLY -- Exercise 1
 -}
 skips :: [a] -> [[a]]
-skips []		= []
-skips [x]		= [[x]]
-skips xs 		= map (everyN xs) [1..length xs] -- partially apply everyN with list xs
+skips []	= []
+skips [x]	= [[x]]
+skips xs 	= map (everyN xs) [1..length xs] -- partially apply everyN with list xs
 												-- [1..length xs] -> makes a list from 1 to the length of list xs, this will be our values of n for everyN
 												-- map calls the partially applied everyN function onto that list
 
