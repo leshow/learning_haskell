@@ -26,6 +26,6 @@ the zip3 takes the list, a list starting at the second elem, and a list starting
 	becomes: [(1,2,3),(2,3,4)]
 -}		
 localMaxima:: [Integer] -> [Integer]
-localMaxima list =  map (\(q,w,e) -> w) $ filter n $ zip3 list (tail list) (tail $ tail list)
+localMaxima list =  map (\(_,w,_) -> w) $ filter n $ zip3 list (tail list) (tail $ tail list)
 	where 
 		n (j,k,l) = (k > j) && (k > l)
