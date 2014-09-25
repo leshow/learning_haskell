@@ -50,7 +50,7 @@ count xs n = length $ filter (\x -> x == n) xs
 f :: [Int] -> String
 f freqs = g h freqs
   where g 0 _ = ""
-        g n freqs =
-            (map (\x -> if x >= n then '*' else ' ') freqs) ++ "\n" ++
-            g (n-1) freqs
+        g n freqs = (map (\x -> if x >= n then '*' else ' ') freqs)
+                        ++ "\n"
+                        ++ g (n-1) freqs
         h = maximum freqs
