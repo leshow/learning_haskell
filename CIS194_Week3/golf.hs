@@ -32,14 +32,25 @@ localMaxima list =  map (\(_,w,_) -> w) $ filter n $ zip3 list (tail list) (tail
 		n (j,k,l) = (k > j) && (k > l)
 
 {-  Exercise 3 -}
-
+-- originally i had map (count list) list, this would return the count of elements correctly
+-- but not in a usable list format. by using map (count list) [0..9] we get a list where each positon
+-- has the count for the number of elements it contains
 histogram :: [Integer] -> String
-histogram
+histogram list = (f $ map (count list) [0..9]) ++ "==========\n0123456789\n"
 
-
---count :: [Integer] -> Integer -> Integer
---count [] _      = 0
---count (x:xs) n  = if x == n then 1 else 0 + count xs n
-
+-- recursive count:
+-- count :: [Integer] -> Integer -> Integer
+-- count [] _      = 0
+-- count (x:xs) n  = if x == n then 1 else 0 + count xs n
+-- more terse count:
 count :: [Integer] -> Integer -> Integer
-count xs n = length (filter (\x -> x == n) xs)
+count xs n = length $ filter (\x -> x == n) xs
+
+-- i did not write this function, i got help with it.
+f :: [Integer] -> String
+f freqs = g h freqs
+  where g 0 _ = ""
+        g n freqs =
+            (map (\x -> if x >= n then '*' else ' ') freqs) ++ "\n" ++
+            g (n-1) freqs
+        h = maximum freqs
