@@ -50,3 +50,21 @@ instance Show Color where
 -- show class has one function show that you implement to say how
 -- you want your type to look as a string
 -- i'm pretty sure the 'deriving Show' does the basic conversion automagically
+
+
+-- simple example of doing a read and a show
+main = do
+        putStrLn "Please enter a double:"
+        inpStr <- getLine
+        let inpDouble = (read inpStr)::Double
+        putStrLn ("Twice " ++ show inpDouble ++ " is " ++ show (inpDouble * 2))
+
+--
+instance Read Color where
+  readsPrec _ value =
+    tryParse [("Red",Red),("Green",Green),("Purple",Purple)]
+    where tryParse [] = []
+          tryParse ((attempt, result):xs) =
+            if (take (length attempt) value) == attempt
+              then [(result, drop (length attempt) value)]
+              else tryParse xs
