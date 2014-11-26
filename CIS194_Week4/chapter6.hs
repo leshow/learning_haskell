@@ -10,7 +10,7 @@ colorEq Green Green   = True
 colorEq Purple Purple = True
 colorEq _ _           = False
 
--- it would be tedious to define equality for every time, instead
+-- it would be tedious to define equality for every type, instead
 -- haskell language would implement a generic equality test
 -- we use typeclasses to do this:
 
@@ -61,8 +61,7 @@ main = do
 
 --
 instance Read Color where
-  readsPrec _ value =
-    tryParse [("Red",Red),("Green",Green),("Purple",Purple)]
+  readsPrec _ value = tryParse [("Red",Red),("Green",Green),("Purple",Purple)]
     where tryParse [] = []
           tryParse ((attempt, result):xs) =
             if (take (length attempt) value) == attempt
